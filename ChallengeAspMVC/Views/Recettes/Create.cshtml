@@ -1,0 +1,132 @@
+﻿@model ChallengeAspMVC.ViewsModels.RecettesViewModels
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm("Create", "Recettes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="col-xs-12 col-sm-9">
+        <div class="content" id="content_recettes_new">
+
+            <h1 class="page-title">Nouvelle recette</h1>
+            @Html.ValidationSummary()
+            <section class="section">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p class="line">
+                            <label for="">Nom de la recette</label>
+                            <input type="text" name="name"class="mb0 wide" required>
+                            @Html.ValidationMessage("name", "Le nom n'est pas assez long")
+                        </p>
+                        <p class="line">
+                            <label for="">Catégorie</label>
+                            <select name="" id="" class="mb0 wide">
+                                <option value=""></option>
+                                <option value="entree">Entrée</option>
+                                <option value="plat-principal">Plat principal</option>
+                                <option value="dessert">Dessert</option>
+                                <option value="boisson">Boisson</option>
+                                <option value="aperitif">Apéritif</option>
+                                <option value="encas">Encas</option>
+                                <option value="dejeuner">Déjeuner / Brunch</option>
+                            </select>
+                        </p>
+                        <p class="line">
+                            <label for="">Préparation de votre recette</label>
+                            @Html.ValidationMessage("preparation", "Le description est tros courte")
+                            <textarea id="recette_desc" name="preparation" class="resizable mb0 wide" required></textarea>
+                        </p>
+                    </div>
+                    <div class="col-xs-6">
+                        <p class="line">
+                            <label for="">Photo de la recette</label>
+                            <input type="file" name="file" class="mb0">
+                        </p>
+                        <p class="line ac">
+                            <img class="current_img" src="img/recette_placeholder.jpg" alt="Visuel recette">
+                        </p>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="hr mt2 mb2"></div>
+                    </div>
+                    <div class="col-xs-12">
+                        <p class="line ac">
+                            <label for="">Sélectionnez tous les ingrédients de votre recette</label>
+                        </p>
+                        <p class="ac">
+                            <select name="" id="">
+                                <option value="all">Toutes les catégories</option>
+                                <option value="viandes">Viandes</option>
+                                <option value="legumes">legumes</option>
+                                <option value="fruits">fruits</option>
+                                <option value="poissons">poissons</option>
+                                <option value="produits-laitiers">Produits laitiers</option>
+                                <option value="etc">etc...</option>
+                            </select>
+                            <span class="span-label"><span class="glyphicon glyphicon-menu-right nm"></span></span>
+                            <select name="" id="selectIngredien">
+                                @foreach (var ingredient in Model.ingredientsObj)
+                                {
+                                    <option url-picture="@ingredient.picture" value="@ingredient.name">@ingredient.name</option>
+                                }
+                            </select>
+                            <button type="button" onclick="addIngredient()" class="btn btn_color3"><span class="glyphicon glyphicon-plus"></span></button>
+                        </p>
+                        <div class="ingredients_list">
+                            <ul class="list ac" id="ListIng">
+                                
+                            </ul>
+                        </div>
+                        <div class="ac">
+                            <p class="recette_total_calories">
+                                <span class="tit">Valeur calorique <span class="mass">(100g)</span> : </span><span class="val">270<span class="unit">kcal</span></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="hr mb2"></div>
+                    </div>
+                    <div class="col-xs-12 ac">
+                        <button type="submit" class="btn btn_color3 recette_save"><span class="glyphicon glyphicon-ok mr0"></span><span>Valider ma recette</span></button>
+                    </div>
+
+                    <!-- Afficher au clic sur "valider ma recette" lorsque tout s'est bien déroulé -->
+                    <div class="col-xs-12">
+                        <p class="ac mt2 tb">
+                            <span class="glyphicon glyphicon-thumbs-up color3"></span>
+                            <span>Votre recette a bien été ajoutée !</span>
+                        </p>
+                        <p class="ac">
+                            <a class="btn btn_color1" href="communaute_details.html"><span class="glyphicon glyphicon-cutlery"></span><span>Mes recettes</span></a>
+                        </p>
+                    </div>
+
+                    <!-- Afficher au clic sur "valider ma recette" si certains éléments sont manquants -->
+                    <div class="col-xs-12">
+                        <p class="ac mt2 tb">
+                            <span class="glyphicon glyphicon-exclamation-sign color2"></span>
+                            <span>Woops ! Votre recette est super foireuse</span>
+                        </p>
+                        <p class="ac">Vous avez dû oublier quelque chose...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+}
+<script>
+    function addIngredient(){
+        $("#ListIng").append('<li class="item" id="ingredientAdded'+$("#selectIngredien").val()+'"><img class="item-img" src="/img/ingredients/' + $("#selectIngredien option:selected").attr("url-picture") + '" alt="' + $("#selectIngredien").val() + '"><p class="item-name" title="' + $("#selectIngredien").val() + '">' + $("#selectIngredien").val() + '</p><input type="hidden" name="ingredientsObj" value="' + $("#selectIngredien").val() + '"><button type="button" onclick="removeIngredient(\''+$("#selectIngredien").val()+'\')" class="remove_ingredient"><span class="glyphicon glyphicon-remove"></span></button> </li>');
+    }
+    function removeIngredient(element) {
+        $("#ingredientAdded" + element).remove();
+    }
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

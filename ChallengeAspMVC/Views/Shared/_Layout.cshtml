@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mon application ASP.NET</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+        <div id="wrapper">
+            <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="/" class="logo">
+                                <img src="img/logo_header.png" alt="">
+                            </a>
+                            <div class="desc">
+                                <p>Partagez vos meilleures recettes avec<br />la communauté NgCooking</p>
+                                <p><a class="link" href="home.html"><strong>245 recettes</strong> à découvrir !</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="mobile-menu-btn">
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+                </button>
+            </header>
+            <main id="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3" id="col-nav">
+                            <button type="button" id="mobile-close-btn">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </button>
+                            <nav id="nav">
+                                <ul class="menu">
+                                    <li class="page_hom active">
+                                        <a href="/">Accueil</a>
+                                    </li>
+                                    <li class="page_rec">
+                                        <a href="/RecettesModels">Recettes</a>
+                                    </li>
+                                    <li class="page_ing">
+                                        <a href="ingredients.html">Ingredients</a>
+                                    </li>
+                                    <li class="page_com">
+                                        <a href="communaute.html">Communauté</a>
+                                    </li>
+                                </ul>
+                                <div class="account-area">
+                                    @Html.Partial("_LoginPartial")
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer id="footer">
+                <div class="container">
+                    <div class="row cuisto-img-wrap">
+                        <div class="hidden-xs col-sm-3">
+                            <div class="cuisto-img"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse optio repellat temporibus molestiae ducimus quibusdam eum maiores voluptatum sapiente reprehenderit. Est, modi, tenetur. Tempora perferendis eveniet unde numquam cupiditate nam?</p>
+                            <div class="hr"></div>
+                            <p class="copyright">copyright ngcooking 2015-2016</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <div class="popin" data-popin="connect_popin">
+            <div class="popin-content">
+                <div class="popin-scroll">
+                    <p class="popin-title">Connexion</p>
+                    <form action="#">
+                        <p>
+                            <label for="co_user" class="fwb">Identifiant (email)</label>
+                            <input id="co_user" class="wide" type="text" />
+                        </p>
+                        <p>
+                            <label for="co_pwd" class="fwb">Mot de passe</label>
+                            <input id="co_pwd" class="wide" type="text" />
+                        </p>
+                        <p class="ac nm mt2">
+                            <button type="button" class="btn btn_big btn_color1"><span class="glyphicon glyphicon-ok"></span><span class="fwb uc">Valider</span></button>
+                        </p>
+                    </form>
+                </div>
+                <button class="close popin-close"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
+            <div class="popin-backlayer"></div>
+        </div>
+
+        <div id="mobile-back-layer"></div>
+
+        @Scripts.Render("~/bundles/jquery")
+    </body>
+    
+
+</html>
