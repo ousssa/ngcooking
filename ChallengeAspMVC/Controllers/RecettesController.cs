@@ -38,8 +38,12 @@ namespace ChallengeAspMVC.Controllers
             var Recette = _recettesServicess.GetRecette(id);
             var RecetteView = Mapper.Map<RecettesModels, RecettesViewModels>(Recette);
             RecetteView.ID = id;
-            RecetteView.name = id.Replace("-"," ");
+            RecetteView.name = GenerateIdFromTitle(id);
             return View(RecetteView);
+        }
+        public string GenerateIdFromTitle(string title)
+        {
+            return title.Replace("-", " ");
         }
 
         // GET: Recettes/Create
